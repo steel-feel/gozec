@@ -1,2 +1,2 @@
 # gozec
-idiomatic library for Zcash for go lang
+idiomatic Zcash library for go lang
