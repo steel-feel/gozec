@@ -51,5 +51,7 @@ func TestGetBalance(t *testing.T) {
          t.Errorf("shielded balance should Zero")
     }
 
-
 }
+
+//Note: Send transaction could not be tested due to requirement of on-chain interaction
+

@@ -129,4 +129,24 @@ func (g *GozecWallet) GetBalance() ZecBalance {
 		total: uint64(balances.total),
 	}
 } 
+/*
+to - could be transparent address (t....) or unified(u.....) address 
+value - amount to send
+*/
+func (g *GozecWallet) SendTransaction(to string, value uint64) (string) {
+	c_wallet_dir := C.CString(g.walletDir)
+	c_uuid := C.CString(g.account.uuid)
+	c_to := C.CString(to)
+
+	defer C.free(unsafe.Pointer(c_wallet_dir))
+	defer C.free(unsafe.Pointer(c_uuid))
+	defer C.free(unsafe.Pointer(c_to))
+
+	c_value := C.uint64_t(value)
+
+	C_txn := C.go_send_txn(c_wallet_dir, c_uuid, c_to, c_value, C.uintptr_t(0), C.uint64_t(0), C.CString(""))
+	defer C.free_string(C_txn)
+	
+	return C.GoString(C_txn)
+}
 
