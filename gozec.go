@@ -46,6 +46,13 @@ type GozecWallet struct {
 	account   ZecAccount
 }
 
+type ZecBalance struct {
+	unshielded uint64
+	shielded uint64
+	total uint64
+	height string
+}
+
 func Init(wallet_dir string) (*GozecWallet, error) {
 	f, err := os.Open(wallet_dir)
 	c_wallet_dir := C.CString(wallet_dir)
@@ -98,7 +105,28 @@ func (g *GozecWallet) GetAddress() (ZecAddress) {
 
 func (g *GozecWallet) Sync() {
 	c_wallet_dir := C.CString(g.walletDir)
+	
 	defer C.free(unsafe.Pointer(c_wallet_dir))
+
 	C.go_sync(c_wallet_dir)
+} 
+
+func (g *GozecWallet) GetBalance() ZecBalance {
+	c_wallet_dir := C.CString(g.walletDir)
+	c_uuid := C.CString(g.account.uuid)
+
+	defer C.free(unsafe.Pointer(c_wallet_dir))
+	defer C.free(unsafe.Pointer(c_uuid))
+	
+	C.go_sync(c_wallet_dir)
+
+	balances := C.go_balance(c_wallet_dir, c_uuid)
+
+	return ZecBalance{
+		height: C.GoString(balances.height),
+		shielded: uint64(balances.orchard),
+		unshielded: uint64(balances.unshielded),
+		total: uint64(balances.total),
+	}
 } 
 

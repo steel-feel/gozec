@@ -25,10 +25,31 @@ func TestGetAddress(t *testing.T) {
         fmt.Printf("error %v", err.Error())
     }
 
-    accountAddress := zecWallet.getAddress()
+    accountAddress := zecWallet.GetAddress()
    // fmt.Printf("Account address %v \n", accountAddress)
     if len(accountAddress.tAddress) == 0 {
          t.Errorf("tAddress should not be empty")
     }
+
+}
+
+func TestGetBalance(t *testing.T) {
+    zecWallet, err := Init("./hello")
+    if err != nil {
+        fmt.Printf("error %v", err.Error())
+    }
+
+    should := 0
+
+    balances := zecWallet.GetBalance()
+
+    if balances.total != uint64(should) {
+         t.Errorf("Total should Zero")
+    }
+
+    if balances.shielded != uint64(should) {
+         t.Errorf("shielded balance should Zero")
+    }
+
 
 }
