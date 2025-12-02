@@ -79,7 +79,7 @@ func Init(wallet_dir string) (*GozecWallet, error) {
 
 
 
-func (g *GozecWallet) getAddress() (ZecAddress) {
+func (g *GozecWallet) GetAddress() (ZecAddress) {
 	c_wallet_dir := C.CString(g.walletDir)
 	c_uuid := C.CString(g.account.uuid)
 
@@ -95,3 +95,10 @@ func (g *GozecWallet) getAddress() (ZecAddress) {
 		}
 
 }
+
+func (g *GozecWallet) Sync() {
+	c_wallet_dir := C.CString(g.walletDir)
+	defer C.free(unsafe.Pointer(c_wallet_dir))
+	C.go_sync(c_wallet_dir)
+} 
+
