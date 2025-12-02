@@ -9,7 +9,7 @@ import (
 /*
 #cgo LDFLAGS: -L${SRCDIR}/ffi -lrust_ffi_go
 #include <stdlib.h>
-void go_create_wallet(const char* str);
+void go_create_wallet(const char* str, uint32_t network );
 void go_sync(const char* str);
 void go_get_txn_list(const char* ptr, const char* uuid);
 typedef struct { char* uuid; char* uivk; char* ufvk; char* source; } CAccount;
@@ -53,14 +53,24 @@ type ZecBalance struct {
 	height string
 }
 
-func Init(wallet_dir string) (*GozecWallet, error) {
+type NetworkType int
+
+// Define constants for the days of the week
+const (
+    Testnet NetworkType = iota
+    Mainnet
+)
+
+func Init(wallet_dir string, networkType NetworkType) (*GozecWallet, error) {
 	f, err := os.Open(wallet_dir)
 	c_wallet_dir := C.CString(wallet_dir)
+
 	defer C.free(unsafe.Pointer(c_wallet_dir))
 	if err != nil {
 		if os.IsNotExist(err) {
 			//create the wallet
-			C.go_create_wallet(c_wallet_dir)
+			c_network := C.uint32_t(networkType)
+			C.go_create_wallet(c_wallet_dir, c_network )
 		} else {
 			return nil, errors.New("Unknown error")
 		}

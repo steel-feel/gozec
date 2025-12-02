@@ -6,7 +6,7 @@ import (
 )
 
 func TestInit(t *testing.T) {
-    zecWallet, err := Init("./hello")
+    zecWallet, err := Init("../hello", Mainnet)
     if err != nil {
         fmt.Printf("error %v", err.Error())
     }
@@ -20,7 +20,7 @@ func TestInit(t *testing.T) {
 }
 
 func TestGetAddress(t *testing.T) {
-    zecWallet, err := Init("./hello")
+     zecWallet, err := Init("../hello", Mainnet)
     if err != nil {
         fmt.Printf("error %v", err.Error())
     }
@@ -34,7 +34,7 @@ func TestGetAddress(t *testing.T) {
 }
 
 func TestGetBalance(t *testing.T) {
-    zecWallet, err := Init("./hello")
+    zecWallet, err := Init("../hello", Mainnet)
     if err != nil {
         fmt.Printf("error %v", err.Error())
     }
