@@ -12,14 +12,8 @@ An idiomatic Go wrapper around a Rust FFI for interacting with a Zcash wallet.
 
 **Installation / Build**
 
-1. Build the Rust FFI library (inside the `ffi/` folder). Typical steps (depends on the Rust project in `ffi/`):
+1. Build the Rust FFI library from [zcash rust ffi library](https://github.com/steel-feel/zcash_rust_ffi) ans put inside the `ffi/` folder. Typical steps (depends on the Rust project in `ffi/`):
 
-```bash
-cd ffi
-cargo build --release
-# Ensure the produced library (static/dynamic) is available as
-# lib<name>.a or lib<name>.dylib in the `ffi/` directory so cgo can link it.
-```
 
 2. Build or test the Go package from the repository root:
 
