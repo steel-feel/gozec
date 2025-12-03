@@ -7,7 +7,6 @@ import (
 )
 
 /*
-#cgo LDFLAGS: -L${SRCDIR}/ffi -lrust_ffi_go
 #include <stdlib.h>
 void go_create_wallet(const char* str, uint32_t network );
 void go_sync(const char* str);

@@ -1,21 +1,36 @@
 # gozec
+![Gozec_logo](docs/assets/gozec.png)
+
 An idiomatic Go wrapper around a Rust FFI for interacting with a Zcash wallet.
 
-**Overview**
+## Overview
 - **Project:** `gozec` — a small Go library that calls into a Rust FFI (in `ffi/`) to manage a Zcash wallet.
 - **Use case:** programmatic wallet creation, address retrieval, syncing, balance checks and sending transactions from Go.
 
-**Requirements**
+## Requirements
 - **Go:** `go 1.25.4` (see `go.mod`).
 - **Rust toolchain:** to build the FFI library in `ffi/` (the Go code links against `-lrust_ffi_go`).
 - **CGo:** enabled (bundled into `go build` when CGo is available on your system).
 
-**Installation / Build**
+## Installation / Build
 
-1. Build the Rust FFI library from [zcash rust ffi library](https://github.com/steel-feel/zcash_rust_ffi) ans put inside the `ffi/` folder. Typical steps (depends on the Rust project in `ffi/`):
+1. Prepare FFI bindings. you can either
+
+- **Build from source** [zcash rust ffi library](https://github.com/steel-feel/zcash_rust_ffi) and put inside the `ffi/` folder at home directory or where ever you like.
+
+#### OR
+
+- **Download from here** - [librust_ffi_go.dylib](https://ljmu-my.sharepoint.com/:u:/g/personal/uplhjai2_ljmu_ac_uk/IQAtru71AABhRoP_zPYzibuRAbK3CVLMgbVnPbtxS1NI-LI?e=O77q7Y)
 
 
-2. Build or test the Go package from the repository root:
+2. Set below enviorment variables
+
+```bash
+export GOZEC_FFI=<path/to/folder/of/rust_ffi_go[.dylib/so]>
+export CGO_LDFLAGS="-L$GOZEC_FFI -lrust_ffi_go"
+```
+
+3. Build or test the Go package from the repository root:
 
 ```bash
 go test ./...
