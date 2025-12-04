@@ -20,7 +20,7 @@ An idiomatic Go wrapper around a Rust FFI for interacting with a Zcash wallet.
 
 #### OR
 
-- **Download from here** - [librust_ffi_go.dylib](https://ljmu-my.sharepoint.com/:u:/g/personal/uplhjai2_ljmu_ac_uk/IQAtru71AABhRoP_zPYzibuRAbK3CVLMgbVnPbtxS1NI-LI?e=O77q7Y)
+- **Download from here** - [libzcash_rust_ffi.dylib](https://ljmu-my.sharepoint.com/:u:/g/personal/uplhjai2_ljmu_ac_uk/IQB7-_q_wP5sSJlke0UcYGtnAefQTVMzDHQXI9vaAvZ4MrQ)
 
 
 2. Set below enviorment variables
