@@ -30,14 +30,14 @@ var (
 )
 
 type ZecAccount struct {
-	uuid string
-	uivk string
-	ufvk string
+	Uuid string
+	Uivk string
+	Ufvk string
 }
 
 type ZecAddress struct {
-	tAddress string
-	uAddress string
+	TAddress string
+	UAddress string
 }
 
 type GozecWallet struct {
@@ -46,10 +46,10 @@ type GozecWallet struct {
 }
 
 type ZecBalance struct {
-	unshielded uint64
-	shielded   uint64
-	total      uint64
-	height     string
+	Unshielded uint64
+	Shielded   uint64
+	Total      uint64
+	Height     string
 }
 
 type NetworkType int
@@ -59,7 +59,11 @@ const (
 	Testnet NetworkType = iota
 	Mainnet
 )
+/*
+@param wallet_dir - directory where the wallet should be stored
 
+@param networkType - for testnet 0, mainnet 1
+*/
 func Init(wallet_dir string, networkType NetworkType) (*GozecWallet, error) {
 	f, err := os.Open(wallet_dir)
 	c_wallet_dir := C.CString(wallet_dir)
@@ -84,9 +88,9 @@ func Init(wallet_dir string, networkType NetworkType) (*GozecWallet, error) {
 	instance = &GozecWallet{
 		walletDir: wallet_dir,
 		account: ZecAccount{
-			uuid: C.GoString(accountList[0].uuid),
-			uivk: C.GoString(accountList[0].uivk),
-			ufvk: C.GoString(accountList[0].ufvk),
+			Uuid: C.GoString(accountList[0].uuid),
+			Uivk: C.GoString(accountList[0].uivk),
+			Ufvk: C.GoString(accountList[0].ufvk),
 		},
 	}
 
@@ -98,7 +102,7 @@ Get Transparent and Shielded address of zcash account
 */
 func (g *GozecWallet) GetAddress() ZecAddress {
 	c_wallet_dir := C.CString(g.walletDir)
-	c_uuid := C.CString(g.account.uuid)
+	c_uuid := C.CString(g.account.Uuid)
 
 	defer C.free(unsafe.Pointer(c_wallet_dir))
 	defer C.free(unsafe.Pointer(c_uuid))
@@ -107,8 +111,8 @@ func (g *GozecWallet) GetAddress() ZecAddress {
 
 	// C_accAddress.t_address
 	return ZecAddress{
-		tAddress: C.GoString(C_accAddress.t_address),
-		uAddress: C.GoString(C_accAddress.u_address),
+		TAddress: C.GoString(C_accAddress.t_address),
+		UAddress: C.GoString(C_accAddress.u_address),
 	}
 
 }
@@ -128,7 +132,7 @@ Get balances of wallet
 */
 func (g *GozecWallet) GetBalance() ZecBalance {
 	c_wallet_dir := C.CString(g.walletDir)
-	c_uuid := C.CString(g.account.uuid)
+	c_uuid := C.CString(g.account.Uuid)
 
 	defer C.free(unsafe.Pointer(c_wallet_dir))
 	defer C.free(unsafe.Pointer(c_uuid))
@@ -138,10 +142,10 @@ func (g *GozecWallet) GetBalance() ZecBalance {
 	balances := C.go_balance(c_wallet_dir, c_uuid)
 
 	return ZecBalance{
-		height:     C.GoString(balances.height),
-		shielded:   uint64(balances.orchard),
-		unshielded: uint64(balances.unshielded),
-		total:      uint64(balances.total),
+		Height:     C.GoString(balances.height),
+		Shielded:   uint64(balances.orchard),
+		Unshielded: uint64(balances.unshielded),
+		Total:      uint64(balances.total),
 	}
 }
 
@@ -152,7 +156,7 @@ func (g *GozecWallet) GetBalance() ZecBalance {
 */
 func (g *GozecWallet) SendTransaction(to string, value uint64) string {
 	c_wallet_dir := C.CString(g.walletDir)
-	c_uuid := C.CString(g.account.uuid)
+	c_uuid := C.CString(g.account.Uuid)
 	c_to := C.CString(to)
 
 	defer C.free(unsafe.Pointer(c_wallet_dir))

@@ -13,7 +13,7 @@ func TestInit(t *testing.T) {
 
     // fmt.Printf("uuid %v \nuivk %v\n ufvk %v\n", zecWallet.account.uuid, zecWallet.account.uivk, zecWallet.account.ufvk)
 
-    if len(zecWallet.account.uuid) == 0 {
+    if len(zecWallet.account.Uuid) == 0 {
          t.Errorf("lend of uuid = 0 , want gt 0")
     }
 
@@ -27,7 +27,7 @@ func TestGetAddress(t *testing.T) {
 
     accountAddress := zecWallet.GetAddress()
    // fmt.Printf("Account address %v \n", accountAddress)
-    if len(accountAddress.tAddress) == 0 {
+    if len(accountAddress.TAddress) == 0 {
          t.Errorf("tAddress should not be empty")
     }
 
@@ -43,11 +43,11 @@ func TestGetBalance(t *testing.T) {
 
     balances := zecWallet.GetBalance()
 
-    if balances.total != uint64(should) {
+    if balances.Total != uint64(should) {
          t.Errorf("Total should Zero")
     }
 
-    if balances.shielded != uint64(should) {
+    if balances.Shielded != uint64(should) {
          t.Errorf("shielded balance should Zero")
     }
 
