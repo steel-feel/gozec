@@ -14,7 +14,7 @@ void go_get_txn_list(const char* ptr, const char* uuid);
 typedef struct { char* uuid; char* uivk; char* ufvk; char* source; } CAccount;
 typedef struct { char* t_address; char* u_address; } CAddress;
 typedef struct { CAccount* ptr; size_t len; } CAccountArray;
-typedef struct { char* height ; uint64_t total ; uint64_t orchard ;uint64_t unshielded ; } CBalance;
+typedef struct { char* height ; uint64_t total ; uint64_t orchard ;uint64_t unshielded ; uint64_t sapling ;} CBalance;
 CAccountArray go_list_accounts(const char* str);
 CAddress go_get_address(const char* ptr, const char* uuid);
 char* go_send_txn(const char* wallet_name, const char* uuid, const char* address,uint64_t value, size_t target_note_count, uint64_t min_split_output_value, const char* memo  );
@@ -49,6 +49,7 @@ type ZecBalance struct {
 	Unshielded uint64
 	Shielded   uint64
 	Total      uint64
+	Sapling    uint64
 	Height     string
 }
 
@@ -59,6 +60,7 @@ const (
 	Testnet NetworkType = iota
 	Mainnet
 )
+
 /*
 @param wallet_dir - directory where the wallet should be stored
 
@@ -127,6 +129,7 @@ func (g *GozecWallet) Sync() {
 
 	C.go_sync(c_wallet_dir)
 }
+
 /*
 Get balances of wallet
 */
@@ -145,6 +148,7 @@ func (g *GozecWallet) GetBalance() ZecBalance {
 		Height:     C.GoString(balances.height),
 		Shielded:   uint64(balances.orchard),
 		Unshielded: uint64(balances.unshielded),
+		Sapling:    uint64(balances.sapling),
 		Total:      uint64(balances.total),
 	}
 }

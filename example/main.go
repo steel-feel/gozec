@@ -15,4 +15,11 @@ func main() {
 
 	fmt.Printf("wallet addresses are\n Transaparent - %v\n Unified - %v\n", addresses.TAddress, addresses.UAddress ) 
 
+	balances := wallet.GetBalance()
+
+	fmt.Printf("Balances are\n Total - %v\n UnShielded - %v\nShielded - %v",
+	 balances.Total,
+	 balances.Unshielded, 
+	 balances.Shielded ) 
+
 }
