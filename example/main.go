@@ -1,4 +1,4 @@
-package example
+package main
 
 import (
 	"fmt"
@@ -13,6 +13,6 @@ func main() {
 
 	addresses := wallet.GetAddress()
 
-	fmt.Printf("wallet address is %v", addresses.UAddress ) 
+	fmt.Printf("wallet addresses are\n Transaparent - %v\n Unified - %v\n", addresses.TAddress, addresses.UAddress ) 
 
 }
