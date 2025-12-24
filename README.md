@@ -102,6 +102,4 @@ Types
 - This repository includes a `LICENSE` file — follow its terms.
 
 **Contact / Author**
-- Repository: `github.com/steel-feel/gozec`
-
-If you'd like, I can also add a small example program under `examples/` or add a CI job that builds the Rust FFI and runs the Go tests — tell me which you'd prefer.
+[x.com](https://x.com/steel_feel_)
