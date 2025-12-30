@@ -104,3 +104,10 @@ Types
 **Contact / Author**
 
 [steel-feel](https://x.com/steel_feel_)
+
+## 🏆 Awards & Recognition
+
+We are proud to announce that **Project** was awarded a prize by the **Zcash Community Grants** committee during the **Zypherpunks Hackathon 2025**.
+
+* **Category:** Privacy Infrastructure and Developer Tools
+* **Issuer:** [Zcash Community Grants](https://zfnd.org/)
